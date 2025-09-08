@@ -1,0 +1,11 @@
+name: openbb-env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pandas
+  - matplotlib
+  - jupyter
+  - pip
+  - pip:
+      - openbb[all]

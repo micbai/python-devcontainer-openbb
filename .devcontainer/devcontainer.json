@@ -1,22 +1,46 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/universal
 {
-	"name": "Default Linux Universal",
+	"name": "Universal Linux OpenBB",
+
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/universal:2-linux"
+	//"image": "mcr.microsoft.com/devcontainers/universal:2-linux"
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".."
+		// Update 'VAR_NAME' to a variable name of your choice.
+		// "args": { "VAR_NAME": "value" }
+	},
+	
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	"remoteUser": "root",
+
+	// // Mounts files from the local workspace folder to the container. More info: https://aka.ms/vscode-remote/mounts.
+	// "mounts": [
+    // "source=${localWorkspaceFolder}/notebooks,target=/app/notebooks,type=bind"
+    // ],
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	"forwardPorts": [8888],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "uname -a",
+	"postCreateCommand": "conda run -n openbb-env pip install jupyterlab",
 
 	// Configure tool-specific properties.
-	// "customizations": {},
-
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+	"customizations": {
+    "vscode": {
+      "settings": {
+		"terminal.integrated.defaultProfile.linux": "bash",
+        "python.defaultInterpreterPath": "/opt/conda/envs/openbb-env/bin/python"
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "ms-azuretools.vscode-docker"
+      	]
+      } 
+  	}
 }
